@@ -1,0 +1,29 @@
+import numpy as np
+from scipy import stats
+
+# Задаем параметры для каждой группы
+mean_a = 360
+std_a = 40
+n_a = 9802
+
+mean_b = 352
+std_b = 58
+n_b = 9789
+
+# Создаем массивы данных (для простоты, будем использовать нормальное распределение)
+data_a = np.random.normal(loc=mean_a, scale=std_a, size=n_a)
+data_b = np.random.normal(loc=mean_b, scale=std_b, size=n_b)
+
+# Проводим двухвыборочный t-тест с предположением о равенстве дисперсий
+t_statistic, p_value = stats.ttest_ind(data_a, data_b, equal_var=True)
+
+# Выводим результаты
+print("t-статистика:", t_statistic)
+print("p-значение:", p_value)
+
+# Интерпретация результатов
+alpha = 0.05  # Уровень значимости
+if p_value < alpha:
+    print("Отвергаем нулевую гипотезу. Есть статистически значимые различия между группами.")
+else:
+    print("Не можем отвергнуть нулевую гипотезу. Нет достаточных оснований считать, что группы отличаются.")
